@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище newlibrary_dbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="books_table">
+          <Key>
+            <PropertyRef Name="_book_id" />
+          </Key>
+          <Property Name="_book_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="_title" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="_author" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="_year" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="_genre" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="_available" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="_date_of_issue" Type="nvarchar" MaxLength="10" />
+          <Property Name="_user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="users_table">
+          <Key>
+            <PropertyRef Name="_user_id" />
+          </Key>
+          <Property Name="_user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="_last_name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="_name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="_middle_name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="_phone_number" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="_adress" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="_password" Type="nvarchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__books_tab___user__25869641">
+          <End Role="users_table" Type="Self.users_table" Multiplicity="0..1" />
+          <End Role="books_table" Type="Self.books_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users_table">
+              <PropertyRef Name="_user_id" />
+            </Principal>
+            <Dependent Role="books_table">
+              <PropertyRef Name="_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище newlibrary_dbModelContainer">
+          <EntitySet Name="books_table" EntityType="Self.books_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users_table" EntityType="Self.users_table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__books_tab___user__25869641" Association="Self.FK__books_tab___user__25869641">
+            <End Role="users_table" EntitySet="users_table" />
+            <End Role="books_table" EntitySet="books_table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="newlibrary_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="books_table">
+          <Key>
+            <PropertyRef Name="C_book_id" />
+          </Key>
+          <Property Name="C_book_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C_title" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_author" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_year" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_genre" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_available" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_date_of_issue" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="C_user_id" Type="Int32" />
+          <NavigationProperty Name="users_table" Relationship="Self.FK__books_tab___user__25869641" FromRole="books_table" ToRole="users_table" />
+        </EntityType>
+        <EntityType Name="users_table">
+          <Key>
+            <PropertyRef Name="C_user_id" />
+          </Key>
+          <Property Name="C_user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C_last_name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_middle_name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_phone_number" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_adress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_password" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="books_table" Relationship="Self.FK__books_tab___user__25869641" FromRole="users_table" ToRole="books_table" />
+        </EntityType>
+        <Association Name="FK__books_tab___user__25869641">
+          <End Role="users_table" Type="Self.users_table" Multiplicity="0..1" />
+          <End Role="books_table" Type="Self.books_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users_table">
+              <PropertyRef Name="C_user_id" />
+            </Principal>
+            <Dependent Role="books_table">
+              <PropertyRef Name="C_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="newlibrary_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="books_table" EntityType="Self.books_table" />
+          <EntitySet Name="users_table" EntityType="Self.users_table" />
+          <AssociationSet Name="FK__books_tab___user__25869641" Association="Self.FK__books_tab___user__25869641">
+            <End Role="users_table" EntitySet="users_table" />
+            <End Role="books_table" EntitySet="books_table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище newlibrary_dbModelContainer" CdmEntityContainer="newlibrary_dbEntities">
+          <EntitySetMapping Name="books_table">
+            <EntityTypeMapping TypeName="newlibrary_dbModel.books_table">
+              <MappingFragment StoreEntitySet="books_table">
+                <ScalarProperty Name="C_book_id" ColumnName="_book_id" />
+                <ScalarProperty Name="C_title" ColumnName="_title" />
+                <ScalarProperty Name="C_author" ColumnName="_author" />
+                <ScalarProperty Name="C_year" ColumnName="_year" />
+                <ScalarProperty Name="C_genre" ColumnName="_genre" />
+                <ScalarProperty Name="C_available" ColumnName="_available" />
+                <ScalarProperty Name="C_date_of_issue" ColumnName="_date_of_issue" />
+                <ScalarProperty Name="C_user_id" ColumnName="_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users_table">
+            <EntityTypeMapping TypeName="newlibrary_dbModel.users_table">
+              <MappingFragment StoreEntitySet="users_table">
+                <ScalarProperty Name="C_user_id" ColumnName="_user_id" />
+                <ScalarProperty Name="C_last_name" ColumnName="_last_name" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="C_middle_name" ColumnName="_middle_name" />
+                <ScalarProperty Name="C_phone_number" ColumnName="_phone_number" />
+                <ScalarProperty Name="C_adress" ColumnName="_adress" />
+                <ScalarProperty Name="C_password" ColumnName="_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

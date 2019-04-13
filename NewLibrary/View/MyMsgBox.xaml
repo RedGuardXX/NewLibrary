@@ -1,0 +1,101 @@
+﻿<Window x:Class="NewLibrary.MyMsgBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NewLibrary"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Новая Библиотека | Уведомление" Height="150" Width="600">
+
+
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg" Stretch="UniformToFill" TileMode="None"/>
+    </Window.Background>
+
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" BasedOn="{x:Null}">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#666"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FF605F5F" Offset="0"/>
+                        <GradientStop Color="#FF030303" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="HoverOn">
+                                <ColorAnimation Duration="0:0:0.5" Storyboard.TargetName="content" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                    To="White"/>
+                                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="hover" Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                     To="1"/>
+                            </Storyboard>
+                            <Storyboard x:Key="HoverOff">
+                                <ColorAnimation Duration="0:0:0.5" Storyboard.TargetName="content" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                    To="White"/>
+                                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="hover" Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                     To="0"/>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <!-- Здесь задавай нужные уголки в свойстве CornerRadius -->
+                        <Border x:Name="bg" CornerRadius="5,0,5,0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Border x:Name="hover" CornerRadius="{Binding Path=CornerRadius, ElementName=bg}" Opacity="0">
+                                    <Border.Background>
+                                        <RadialGradientBrush>
+                                            <RadialGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.75" ScaleX="1.804" ScaleY="0.743" />
+                                                    <SkewTransform CenterX="0.5" CenterY="0.75" />
+                                                    <RotateTransform CenterX="0.5" CenterY="0.75" />
+                                                    <TranslateTransform Y="0.47999998927116394" />
+                                                </TransformGroup>
+                                            </RadialGradientBrush.RelativeTransform>
+                                            <GradientStop Color="White" Offset="0.009" />
+                                            <GradientStop Color="Transparent" Offset="1" />
+                                            <GradientStop Color="Transparent" Offset="0" />
+                                        </RadialGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <ContentPresenter x:Name="content" RecognizesAccessKey="True" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOn}"/>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOff}"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF32EBFB"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label  Background="Transparent" Foreground="White" Name="text_label" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"></Label>
+        <Button  Background="Transparent" Foreground="White" Name="ok_btn" Grid.Row="1" Click="ok_btn_Click" FontSize="25" Margin="5">OK</Button>
+        
+
+    </Grid>
+</Window>
